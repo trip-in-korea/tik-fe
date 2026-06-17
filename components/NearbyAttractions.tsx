@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { MapPin, Loader2 } from 'lucide-react';
 import { TourItem } from '@/lib/api';
 import AttractionCard from '@/components/AttractionCard';
+import CardSkeleton from '@/components/CardSkeleton';
 
 // 서울 기준 좌표 (기본 폴백)
 const SEOUL_COORDS = {
@@ -151,11 +152,7 @@ export default function NearbyAttractions() {
         <div className="h-6 w-32 bg-gray-200 dark:bg-zinc-800 rounded-md animate-pulse" />
         <div className="grid grid-cols-2 gap-4 mt-2">
           {[1, 2, 3, 4].map((n) => (
-            <div key={n} className="flex flex-col gap-2">
-              <div className="aspect-[3/4] w-full rounded-xl bg-gray-200 dark:bg-zinc-800 animate-pulse" />
-              <div className="h-4 w-3/4 bg-gray-200 dark:bg-zinc-800 rounded-md animate-pulse" />
-              <div className="h-3 w-1/2 bg-gray-100 dark:bg-zinc-900 rounded-md animate-pulse" />
-            </div>
+            <CardSkeleton key={n} />
           ))}
         </div>
       </div>
@@ -195,11 +192,7 @@ export default function NearbyAttractions() {
         {items.length === 0 && isLoading && (
           <>
             {[1, 2, 3, 4].map((n) => (
-              <div key={n} className="flex flex-col gap-2">
-                <div className="aspect-[3/4] w-full rounded-xl bg-gray-200 dark:bg-zinc-800 animate-pulse" />
-                <div className="h-4 w-3/4 bg-gray-200 dark:bg-zinc-800 rounded-md animate-pulse" />
-                <div className="h-3 w-1/2 bg-gray-100 dark:bg-zinc-900 rounded-md animate-pulse" />
-              </div>
+              <CardSkeleton key={n} />
             ))}
           </>
         )}

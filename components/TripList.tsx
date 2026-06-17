@@ -6,6 +6,7 @@ import { Search, Loader2, SlidersHorizontal, X, MapPin } from 'lucide-react';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import { TourItem } from '@/lib/api';
 import AttractionCard from '@/components/AttractionCard';
+import CardSkeleton from '@/components/CardSkeleton';
 
 const AREAS = [
   { label: '전체', code: '' },
@@ -42,7 +43,7 @@ export default function TripList() {
   const [page, setPage] = useState<number>(1);
   const [items, setItems] = useState<TourItem[]>([]);
   const [totalCount, setTotalCount] = useState<number>(0);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   // 검색 관련 상태 분리 (입력 상태와 실제 적용 키워드 상태)
   const [searchInput, setSearchInput] = useState<string>('');
@@ -386,9 +387,13 @@ export default function TripList() {
 
       {/* 3. 정렬 및 카운트 헤더 */}
       <div className="px-5 py-3.5 flex justify-between items-center bg-gray-50/50 dark:bg-zinc-900/20 text-xs">
-        <p className="text-gray-500 dark:text-zinc-400 font-medium">
-          총 <span className="text-blue-600 dark:text-blue-400 font-bold">{totalCount}</span>개의 결과
-        </p>
+        {(isLoading || locationLoading) ? (
+          <div className="h-4 w-24 bg-gray-200 dark:bg-zinc-850 rounded-md animate-pulse" />
+        ) : (
+          <p className="text-gray-500 dark:text-zinc-400 font-medium">
+            총 <span className="text-blue-600 dark:text-blue-400 font-bold">{totalCount}</span>개의 결과
+          </p>
+        )}
 
         {/* 정렬 셀렉터 */}
         <div className="relative shrink-0 flex items-center">
@@ -415,10 +420,11 @@ export default function TripList() {
 
       {/* 4. 리스트 영역 */}
       <main className="flex-1 pt-5 pb-20">
-        {isLoading ? (
-          <div className="flex flex-col items-center justify-center py-24 gap-2 text-xs text-gray-400">
-            <Loader2 className="w-6 h-6 animate-spin text-blue-500" />
-            <span>불러오는 중...</span>
+        {(isLoading || locationLoading) ? (
+          <div className="grid grid-cols-2 gap-4 px-5">
+            {[1, 2, 3, 4, 5, 6].map((n) => (
+              <CardSkeleton key={n} />
+            ))}
           </div>
         ) : items.length > 0 ? (
           <div className="grid grid-cols-2 gap-4 px-5">
