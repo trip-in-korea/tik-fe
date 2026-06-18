@@ -537,3 +537,213 @@ export const getAttractionDetail = async (
 
   return fetcher();
 };
+
+export interface FestivalItem extends TourItem {
+  eventstartdate?: string; // YYYYMMDD
+  eventenddate?: string;   // YYYYMMDD
+}
+
+export const MOCK_FESTIVALS: FestivalItem[] = [
+  {
+    contentid: "100001",
+    contenttypeid: "15",
+    title: "서울 장미 축제 2026",
+    addr1: "서울특별시 중랑구 중랑천로 332",
+    firstimage: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=800&auto=format&fit=crop&q=60",
+    areacode: "1",
+    eventstartdate: "20260601",
+    eventenddate: "20260630"
+  },
+  {
+    contentid: "100002",
+    contenttypeid: "15",
+    title: "제주 수국 페스티벌 2026",
+    addr1: "제주특별자치도 서귀포시 남원읍 신흥리",
+    firstimage: "https://images.unsplash.com/photo-1560717789-0ac7c58ac90a?w=800&auto=format&fit=crop&q=60",
+    areacode: "39",
+    eventstartdate: "20260610",
+    eventenddate: "20260625"
+  },
+  {
+    contentid: "100003",
+    contenttypeid: "15",
+    title: "부산 해운대 모래 축제 2026",
+    addr1: "부산광역시 해운대구 해운대해변로 264",
+    firstimage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&auto=format&fit=crop&q=60",
+    areacode: "6",
+    eventstartdate: "20260615",
+    eventenddate: "20260622"
+  },
+  {
+    contentid: "100004",
+    contenttypeid: "15",
+    title: "대구 치맥 페스티벌 2026",
+    addr1: "대구광역시 달서구 공원순환로 201",
+    firstimage: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=800&auto=format&fit=crop&q=60",
+    areacode: "4",
+    eventstartdate: "20260701",
+    eventenddate: "20260710"
+  },
+  {
+    contentid: "100005",
+    contenttypeid: "15",
+    title: "해운대 서머 뮤직 페스타 2026",
+    addr1: "부산광역시 해운대구 우동",
+    firstimage: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=800&auto=format&fit=crop&q=60",
+    areacode: "6",
+    eventstartdate: "20260715",
+    eventenddate: "20260815"
+  },
+  {
+    contentid: "100006",
+    contenttypeid: "15",
+    title: "인천 펜타포트 락 페스티벌 2026",
+    addr1: "인천광역시 연수구 센트럴로 350",
+    firstimage: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=800&auto=format&fit=crop&q=60",
+    areacode: "2",
+    eventstartdate: "20260805",
+    eventenddate: "20260809"
+  },
+  {
+    contentid: "100007",
+    contenttypeid: "15",
+    title: "안동 국제 탈춤 페스티벌 2026",
+    addr1: "경상북도 안동시 육사로 239",
+    firstimage: "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=800&auto=format&fit=crop&q=60",
+    areacode: "35",
+    eventstartdate: "20260910",
+    eventenddate: "20260920"
+  },
+  {
+    contentid: "100008",
+    contenttypeid: "15",
+    title: "담양 대나무 축제 2026",
+    addr1: "전라남도 담양군 담양읍 죽녹원로 119",
+    firstimage: "https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=800&auto=format&fit=crop&q=60",
+    areacode: "38",
+    eventstartdate: "20260501",
+    eventenddate: "20260505"
+  },
+  {
+    contentid: "100009",
+    contenttypeid: "15",
+    title: "진해 군항제 (벚꽃 축제) 2026",
+    addr1: "경상남도 창원시 진해구 통신동",
+    firstimage: "https://images.unsplash.com/photo-1522383225653-ed111181a951?w=800&auto=format&fit=crop&q=60",
+    areacode: "36",
+    eventstartdate: "20260405",
+    eventenddate: "20260412"
+  },
+  {
+    contentid: "100010",
+    contenttypeid: "15",
+    title: "광양 매화 축제 2026",
+    addr1: "전라남도 광양시 다압면 섬진강매화로 1563-1",
+    firstimage: "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=800&auto=format&fit=crop&q=60",
+    areacode: "38",
+    eventstartdate: "20260320",
+    eventenddate: "20260325"
+  },
+  {
+    contentid: "100011",
+    contenttypeid: "15",
+    title: "강릉 단오제 2026",
+    addr1: "강원특별자치도 강릉시 단오장길 1",
+    firstimage: "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=800&auto=format&fit=crop&q=60",
+    areacode: "32",
+    eventstartdate: "20260610",
+    eventenddate: "20260624"
+  },
+  {
+    contentid: "100012",
+    contenttypeid: "15",
+    title: "수원 화성 행궁 야간개장 축제 2026",
+    addr1: "경기도 수원시 팔달구 정조로 825",
+    firstimage: "https://images.unsplash.com/photo-1599420186946-7b6fb4e297f0?w=800&auto=format&fit=crop&q=60",
+    areacode: "31",
+    eventstartdate: "20260601",
+    eventenddate: "20260630"
+  }
+];
+
+/**
+ * 행사/축제 정보 조회 (/searchFestival2 API 활용)
+ */
+export const getFestivals = async (
+  eventStartDate: string,
+  areaCode?: string,
+  limit: number = 30,
+  pageNo: number = 1
+): Promise<{ items: FestivalItem[]; totalCount: number }> => {
+  const today = getTodayStringKST();
+  const cacheKey = `festivals-v4-${eventStartDate || 'none'}-${areaCode || 'all'}-${pageNo}-${today}`;
+
+  const fetcher = unstable_cache(
+    async (): Promise<{ items: FestivalItem[]; totalCount: number }> => {
+      if (!process.env.NEXT_PUBLIC_TOUR_API_KEY || process.env.NEXT_PUBLIC_TOUR_API_KEY.includes('YOUR_TOUR_API_SERVICE_KEY')) {
+        console.warn('API Key is not configured. Returning mock festivals.');
+        let filtered = MOCK_FESTIVALS;
+        if (areaCode) {
+          filtered = filtered.filter(item => {
+            const code = item.areacode || (item as any).areaCode;
+            return code === areaCode;
+          });
+        }
+        const startIndex = (pageNo - 1) * limit;
+        return {
+          items: filtered.slice(startIndex, startIndex + limit),
+          totalCount: filtered.length
+        };
+      }
+
+      try {
+        const response = await tourApiInstance.get('/searchFestival2', {
+          params: {
+            eventStartDate: eventStartDate || undefined,
+            areaCode: areaCode || undefined,
+            arrange: 'A',
+            numOfRows: limit,
+            pageNo,
+          },
+        });
+
+        const items = response.data?.response?.body?.items?.item;
+        const totalCount = parseInt(response.data?.response?.body?.totalCount || '0', 10);
+        if (!items) {
+          let filtered = MOCK_FESTIVALS;
+          if (areaCode) {
+            filtered = filtered.filter(item => {
+              const code = item.areacode || (item as any).areaCode;
+              return code === areaCode;
+            });
+          }
+          return { items: filtered.slice(0, limit), totalCount: filtered.length };
+        }
+        return {
+          items: Array.isArray(items) ? items : [items],
+          totalCount
+        };
+      } catch (error) {
+        console.error('Error fetching festivals via searchFestival2. Returning mock data.', error);
+        let filtered = MOCK_FESTIVALS;
+        if (areaCode) {
+          filtered = filtered.filter(item => {
+            const code = item.areacode || (item as any).areaCode;
+            return code === areaCode;
+          });
+        }
+        return {
+          items: filtered.slice(0, limit),
+          totalCount: filtered.length
+        };
+      }
+    },
+    [cacheKey],
+    {
+      revalidate: 86400,
+    }
+  );
+
+  return fetcher();
+};
+

@@ -322,7 +322,7 @@ export default function TripList() {
               onKeyDown={(e) => {
                 if (e.key === 'Enter') handleSearchTrigger();
               }}
-              className="flex-1 text-base focus:outline-none bg-transparent py-0.5 text-gray-800 dark:text-zinc-100 placeholder-gray-400 dark:placeholder-zinc-650"
+              className="flex-1 text-sm focus:outline-none bg-transparent py-0.5 text-gray-800 dark:text-zinc-100 placeholder-gray-400 dark:placeholder-zinc-650"
             />
             <button
               onClick={handleSearchTrigger}
