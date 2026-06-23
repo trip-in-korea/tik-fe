@@ -64,14 +64,14 @@ export default function NearbyAttractions() {
         `/api/attractions?type=nearby&mapX=${currentCoords.lng}&mapY=${currentCoords.lat}&limit=20&page=${pageNum}`
       );
       if (!res.ok) throw new Error('Failed to fetch attractions');
-      
+
       const data: { items: TourItem[]; totalCount: number } = await res.json();
       const newItemsList = data.items || [];
-      
+
       if (newItemsList.length < 20) {
         setHasMore(false);
       }
-      
+
       setItems((prev) => {
         // 중복 방지 병합
         const existingIds = new Set(prev.map(i => i.contentid));
@@ -172,7 +172,7 @@ export default function NearbyAttractions() {
           )}
         </div>
         <p className="text-[11px] text-gray-400 dark:text-zinc-500">
-          {locationError ? '서울 종로 기준 가까운 여행지를 보여드려요' : '현재 위치 주변의 추천 여행지입니다.'}
+          {locationError ? '서울 종로 기준 가까운 여행지를 보여드릴게요 :)' : '현재 위치 주변의 추천 여행지입니다.'}
         </p>
       </div>
 

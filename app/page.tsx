@@ -31,7 +31,7 @@ export default async function Home() {
   console.log("공가 API 데이터 결과:", JSON.stringify(attractions, null, 2));
 
   return (
-    <div className="flex flex-col flex-1 bg-zinc-50 dark:bg-zinc-950 text-gray-900 dark:text-zinc-50 font-sans pb-8">
+    <div className="flex flex-col flex-1 bg-zinc-50 dark:bg-zinc-950 text-gray-900 dark:text-zinc-50 font-sans">
       {/* 탭 메뉴 및 로그인 배너가 포함된 헤더 */}
       <Header />
 
@@ -43,7 +43,6 @@ export default async function Home() {
               <Sparkles className="w-5 h-5 text-blue-600 dark:text-blue-400" />
               지금 뜨는 인기 여행지
             </h2>
-            <span className="text-xs text-gray-400 dark:text-zinc-500">옆으로 넘겨보기</span>
           </div>
 
           <div className="flex gap-4 overflow-x-auto scrollbar-none snap-x snap-mandatory px-5 py-2">
@@ -90,7 +89,7 @@ export default async function Home() {
           </div>
         </div>
 
-        {/* 3. 간단한 광고/홍보 배너 (디자인 디테일) */}
+        {/* 3. 간단한 광고/홍보 배너 (디자인 디테일 추가 필요) */}
         <div className="px-5">
           <div className="rounded-2xl bg-gradient-to-r from-blue-500 to-indigo-600 p-5 text-white flex flex-col gap-1 shadow-sm relative overflow-hidden">
             <span className="text-[10px] font-bold text-blue-200 tracking-wider uppercase">

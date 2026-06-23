@@ -669,6 +669,66 @@ export const MOCK_FESTIVALS: FestivalItem[] = [
 /**
  * 행사/축제 정보 조회 (/searchFestival2 API 활용)
  */
+// 지역 코드 또는 행정코드/주소 기반 로컬 필터 매칭 함수
+const matchArea = (item: FestivalItem, areaCode: string): boolean => {
+  const itemArea = item.areacode || (item as any).areaCode;
+  if (itemArea === areaCode) return true;
+
+  const lDong = (item as any).lDongRegnCd || '';
+  const areaMap: Record<string, string> = {
+    '1': '11',  // 서울
+    '2': '28',  // 인천
+    '3': '30',  // 대전
+    '4': '27',  // 대구
+    '5': '29',  // 광주
+    '6': '26',  // 부산
+    '7': '31',  // 울산
+    '8': '36',  // 세종
+    '31': '41', // 경기
+    '32': '51', // 강원
+    '33': '43', // 충북
+    '34': '44', // 충남
+    '35': '47', // 경북
+    '36': '48', // 경남
+    '37': '45', // 전북
+    '38': '46', // 전남
+    '39': '50', // 제주
+  };
+  if (lDong && areaMap[areaCode] && lDong.startsWith(areaMap[areaCode])) {
+    return true;
+  }
+
+  const addr = item.addr1 || '';
+  const areaNames: Record<string, string[]> = {
+    '1': ['서울'],
+    '2': ['인천'],
+    '3': ['대전'],
+    '4': ['대구'],
+    '5': ['광주'],
+    '6': ['부산'],
+    '7': ['울산'],
+    '8': ['세종'],
+    '31': ['경기', '수원', '성남', '고양', '용인', '부천', '안산', '안양', '남양주', '화성', '평택', '의정부', '파주', '시흥', '김포', '광명', '광주시', '군포', '이천', '오산', '하남', '양주', '구리', '포천', '의왕', '여주', '동두천', '양평', '가평', '연천'],
+    '32': ['강원', '춘천', '원주', '강릉', '동해', '태백', '속초', '삼척', '홍천', '횡성', '영월', '평창', '정선', '철원', '화천', '양구', '인제', '고성군', '양양'],
+    '33': ['충북', '충청북도', '청주', '충주', '제천', '보은', '옥천', '영동', '증평', '진천', '괴산', '음성', '단양'],
+    '34': ['충남', '충청남도', '천안', '공주', '보령', '아산', '서산', '논산', '계룡', '당진', '금산', '부여', '서천', '청양', '홍성', '예산', '태안'],
+    '35': ['경북', '경상북도', '포항', '경주', '김천', '안동', '구미', '영주', '영천', '상주', '문경', '경산', '군위', '의성', '청송', '영양', '영덕', '청도', '고령', '성주', '칠곡', '예천', '봉화', '울진', '울릉'],
+    '36': ['경남', '경상남도', '창원', '진주', '통영', '사천', '김해', '밀양', '거제', '양산', '의령', '함안', '창녕', '고성군', '남해', '하동', '산청', '함양', '거창', '합천'],
+    '37': ['전북', '전라북도', '전주', '군산', '익산', '정읍', '남원', '김제', '완주', '진안', '무주', '장수', '임실', '순창', '고창', '부안'],
+    '38': ['전남', '전라남도', '목포', '여수', '순천', '나주', '광양', '담양', '곡성', '구례', '고흥', '보성', '화순', '장흥', '강진', '해남', '영암', '무안', '함평', '영광', '장성', '완도', '진도', '신안'],
+    '39': ['제주'],
+  };
+  const names = areaNames[areaCode];
+  if (names && names.some(name => addr.includes(name))) {
+    return true;
+  }
+
+  return false;
+};
+
+/**
+ * 행사/축제 정보 조회 (/searchFestival2 API 활용)
+ */
 export const getFestivals = async (
   eventStartDate: string,
   areaCode?: string,
@@ -684,10 +744,7 @@ export const getFestivals = async (
         console.warn('API Key is not configured. Returning mock festivals.');
         let filtered = MOCK_FESTIVALS;
         if (areaCode) {
-          filtered = filtered.filter(item => {
-            const code = item.areacode || (item as any).areaCode;
-            return code === areaCode;
-          });
+          filtered = filtered.filter(item => matchArea(item, areaCode));
         }
         const startIndex = (pageNo - 1) * limit;
         return {
@@ -697,43 +754,49 @@ export const getFestivals = async (
       }
 
       try {
+        // 공공데이터 API의 searchFestival2 endpoint는 areaCode 입력 시 결과가 0건으로 나오는 서버 측 필터링 오동작이 있을 수 있습니다.
+        // 따라서 API로부터 해당 월의 축제를 충분히 가져온 후, 로컬에서 매칭 필터링을 수행합니다.
         const response = await tourApiInstance.get('/searchFestival2', {
           params: {
             eventStartDate: eventStartDate || undefined,
-            areaCode: areaCode || undefined,
             arrange: 'A',
-            numOfRows: limit,
-            pageNo,
+            numOfRows: 500, // 한 달 단위 최대 500개의 축제 데이터 확보
+            pageNo: 1,      // 로컬 필터링을 위해 첫 페이지에서 다량 로드
           },
         });
 
         const items = response.data?.response?.body?.items?.item;
-        const totalCount = parseInt(response.data?.response?.body?.totalCount || '0', 10);
         if (!items) {
           let filtered = MOCK_FESTIVALS;
           if (areaCode) {
-            filtered = filtered.filter(item => {
-              const code = item.areacode || (item as any).areaCode;
-              return code === areaCode;
-            });
+            filtered = filtered.filter(item => matchArea(item, areaCode));
           }
-          return { items: filtered.slice(0, limit), totalCount: filtered.length };
+          const startIndex = (pageNo - 1) * limit;
+          return { items: filtered.slice(startIndex, startIndex + limit), totalCount: filtered.length };
         }
+
+        const rawItems = Array.isArray(items) ? items : [items];
+        const filteredItems = areaCode
+          ? rawItems.filter((item) => matchArea(item, areaCode))
+          : rawItems;
+
+        const totalCount = filteredItems.length;
+        const startIndex = (pageNo - 1) * limit;
+        const paginatedItems = filteredItems.slice(startIndex, startIndex + limit);
+
         return {
-          items: Array.isArray(items) ? items : [items],
+          items: paginatedItems,
           totalCount
         };
       } catch (error) {
         console.error('Error fetching festivals via searchFestival2. Returning mock data.', error);
         let filtered = MOCK_FESTIVALS;
         if (areaCode) {
-          filtered = filtered.filter(item => {
-            const code = item.areacode || (item as any).areaCode;
-            return code === areaCode;
-          });
+          filtered = filtered.filter(item => matchArea(item, areaCode));
         }
+        const startIndex = (pageNo - 1) * limit;
         return {
-          items: filtered.slice(0, limit),
+          items: filtered.slice(startIndex, startIndex + limit),
           totalCount: filtered.length
         };
       }

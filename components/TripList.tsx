@@ -485,7 +485,7 @@ export default function TripList() {
           />
 
           {/* 바텀 시트 본체 */}
-          <div className="relative w-full max-w-md bg-white dark:bg-zinc-950 rounded-t-3xl shadow-2xl z-10 px-5 pt-4 pb-6 flex flex-col gap-5 max-h-[85vh] animate-slideUp border-t border-gray-100 dark:border-zinc-900">
+          <div className="relative w-full max-w-[480px] bg-white dark:bg-zinc-950 rounded-t-3xl shadow-2xl z-10 px-5 pt-4 pb-6 flex flex-col gap-5 max-h-[85vh] animate-slideUp border-t border-gray-100 dark:border-zinc-900">
             {/* 상단 드래그 핸들 데코레이션 */}
             <div className="w-12 h-1.5 bg-gray-200 dark:bg-zinc-800 rounded-full mx-auto" />
 
