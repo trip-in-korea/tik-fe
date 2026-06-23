@@ -226,36 +226,36 @@ export default async function TripDetailPage({ params }: PageProps) {
         <div className="flex flex-col gap-3.5 p-4 bg-gray-50 dark:bg-zinc-900/50 rounded-2xl border border-gray-100 dark:border-zinc-900 text-xs">
           <h3 className="font-bold text-gray-700 dark:text-zinc-300 border-b border-gray-200/50 dark:border-zinc-800 pb-2">상세 안내</h3>
 
-          <div className="flex justify-between items-start gap-4">
+          <div className="flex  items-start gap-4">
             <span className="text-gray-400 dark:text-zinc-500 shrink-0 w-16">주소</span>
-            <span className="text-gray-700 dark:text-zinc-300 text-right">{address}</span>
+            <span className="text-gray-700 dark:text-zinc-300">{address}</span>
           </div>
 
           {detail.infocenter && (
-            <div className="flex justify-between items-start gap-4 pt-1 border-t border-gray-100/50 dark:border-zinc-900/10">
+            <div className="flex  items-start gap-4 pt-1 border-t border-gray-100/50 dark:border-zinc-900/10">
               <span className="text-gray-400 dark:text-zinc-500 shrink-0 w-16">문의처</span>
-              <span className="text-gray-700 dark:text-zinc-300 text-right">{detail.infocenter}</span>
+              <span className="text-gray-700 dark:text-zinc-300">{detail.infocenter}</span>
             </div>
           )}
 
           {detail.usetime && (
-            <div className="flex justify-between items-start gap-4 pt-1 border-t border-gray-100/50 dark:border-zinc-900/10">
+            <div className="flex  items-start gap-4 pt-1 border-t border-gray-100/50 dark:border-zinc-900/10">
               <span className="text-gray-400 dark:text-zinc-500 shrink-0 w-16">이용시간</span>
-              <span className="text-gray-700 dark:text-zinc-300 text-right line-clamp-3">{detail.usetime.replace(/<[^>]*>/g, '')}</span>
+              <span className="text-gray-700 dark:text-zinc-300 line-clamp-3">{detail.usetime.replace(/<[^>]*>/g, '')}</span>
             </div>
           )}
 
           {detail.restdate && (
-            <div className="flex justify-between items-start gap-4 pt-1 border-t border-gray-100/50 dark:border-zinc-900/10">
+            <div className="flex  items-start gap-4 pt-1 border-t border-gray-100/50 dark:border-zinc-900/10">
               <span className="text-gray-400 dark:text-zinc-500 shrink-0 w-16">휴무일</span>
-              <span className="text-gray-700 dark:text-zinc-300 text-right">{detail.restdate.replace(/<[^>]*>/g, '')}</span>
+              <span className="text-gray-700 dark:text-zinc-300">{detail.restdate.replace(/<[^>]*>/g, '')}</span>
             </div>
           )}
 
           {detail.parking && (
-            <div className="flex justify-between items-start gap-4 pt-1 border-t border-gray-100/50 dark:border-zinc-900/10">
+            <div className="flex  items-start gap-4 pt-1 border-t border-gray-100/50 dark:border-zinc-900/10">
               <span className="text-gray-400 dark:text-zinc-500 shrink-0 w-16">주차시설</span>
-              <span className="text-gray-700 dark:text-zinc-300 text-right">{detail.parking.replace(/<[^>]*>/g, '')}</span>
+              <span className="text-gray-700 dark:text-zinc-300">{detail.parking.replace(/<[^>]*>/g, '')}</span>
             </div>
           )}
         </div>
